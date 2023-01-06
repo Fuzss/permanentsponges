@@ -1,6 +1,10 @@
 package fuzs.permanentsponges.world.level.block;
 
 import fuzs.permanentsponges.init.ModRegistry;
+import fuzs.permanentsponges.core.sponge.AbstractSpongeTask;
+import fuzs.permanentsponges.core.sponge.RemoveSpongeTask;
+import fuzs.permanentsponges.core.sponge.SetSpongeTask;
+import fuzs.permanentsponges.core.sponge.SpongeScheduler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -20,14 +24,14 @@ public class PermanentSpongeBlock extends Block {
     @Override
     public void onPlace(BlockState newState, Level level, BlockPos pos, BlockState oldState, boolean p_56815_) {
         if (!oldState.is(newState.getBlock())) {
-            AbstractSpongeTask task = SetSpongeTask.createSetTask((ServerLevel) level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6);
+            AbstractSpongeTask task = SetSpongeTask.createSetTask((ServerLevel) level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6, this.vanish);
             SpongeScheduler.INSTANCE.scheduleTask(task);
         }
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        AbstractSpongeTask task = SetSpongeTask.createSetTask(level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6);
+        AbstractSpongeTask task = SetSpongeTask.createSetTask(level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6, this.vanish);
         SpongeScheduler.INSTANCE.scheduleTask(task);
     }
 

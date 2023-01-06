@@ -14,5 +14,7 @@ public class ModLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         this.add(ModRegistry.AQUEOUS_SPONGE_BLOCK.get(), "Aqueous Sponge");
         this.add(ModRegistry.MAGMATIC_SPONGE_BLOCK.get(), "Magmatic Sponge");
+        this.add(ModRegistry.AQUEOUS_SPONGE_ON_A_STICK.get(), "Aqueous Sponge On A Stick");
+        this.add(ModRegistry.MAGMATIC_SPONGE_ON_A_STICK_ITEM.get(), "Magmatic Sponge On A Stick");
     }
 }

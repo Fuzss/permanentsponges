@@ -1,4 +1,4 @@
-package fuzs.permanentsponges.world.level.block;
+package fuzs.permanentsponges.core.sponge;
 
 import com.google.common.collect.Lists;
 import fuzs.permanentsponges.core.CommonAbstractions;
@@ -21,17 +21,19 @@ import java.util.Queue;
 public class SetSpongeTask extends AbstractSpongeTask {
     private final Queue<Tuple<BlockPos, Integer>> queue;
     private final int distance;
+    private final boolean vanish;
     private boolean hasDestroyedSource;
 
-    private SetSpongeTask(ServerLevel level, Block replacement, BlockPos source, int distance) {
+    private SetSpongeTask(ServerLevel level, Block replacement, BlockPos source, int distance, boolean vanish) {
         super(level, source, replacement);
         this.distance = distance;
+        this.vanish = vanish;
         this.queue = Lists.newLinkedList();
         this.queue.add(new Tuple<>(this.source, 0));
     }
 
-    public static SetSpongeTask createSetTask(ServerLevel level, Block replacement, BlockPos source, int distance) {
-        return new SetSpongeTask(level, replacement, source, distance);
+    public static SetSpongeTask createSetTask(ServerLevel level, Block replacement, BlockPos source, int distance, boolean vanish) {
+        return new SetSpongeTask(level, replacement, source, distance, vanish);
     }
 
     @Override
@@ -58,7 +60,7 @@ public class SetSpongeTask extends AbstractSpongeTask {
             FluidState fluidstate = this.level.getFluidState(blockpos1);
             Material material = blockstate.getMaterial();
             if (!fluidstate.isEmpty() || blockstate.isAir()) {
-                if (CommonAbstractions.INSTANCE.getFluidTemperature(fluidstate) >= 1000) {
+                if (this.shouldDestroySource(fluidstate)) {
                     this.destroySource();
                 }
                 if (blockstate.getBlock() instanceof BucketPickup && !((BucketPickup) blockstate.getBlock()).pickupBlock(this.level, blockpos1, blockstate).isEmpty()) {
@@ -83,6 +85,10 @@ public class SetSpongeTask extends AbstractSpongeTask {
                 }
             }
         }
+    }
+
+    private boolean shouldDestroySource(FluidState fluidstate) {
+        return this.vanish && CommonAbstractions.INSTANCE.getFluidTemperature(fluidstate) >= 1000;
     }
 
     private void destroySource() {

@@ -1,4 +1,4 @@
-package fuzs.permanentsponges.world.level.block;
+package fuzs.permanentsponges.core.sponge;
 
 import fuzs.permanentsponges.init.ModRegistry;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

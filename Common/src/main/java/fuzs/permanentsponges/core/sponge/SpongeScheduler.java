@@ -1,4 +1,4 @@
-package fuzs.permanentsponges.world.level.block;
+package fuzs.permanentsponges.core.sponge;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
