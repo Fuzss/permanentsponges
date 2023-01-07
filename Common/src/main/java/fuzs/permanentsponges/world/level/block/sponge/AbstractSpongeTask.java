@@ -20,7 +20,7 @@ public abstract class AbstractSpongeTask {
         return this.level == level;
     }
 
-    public void finishQuickly() {
+    public final void finishQuickly() {
         this.advance(-1);
     }
 

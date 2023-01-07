@@ -25,7 +25,7 @@ public class SpongeScheduler {
         while (iterator.hasNext()) {
             AbstractSpongeTask task = iterator.next();
             if (task.mayAdvance(level)) {
-                if (task.advance(3)) {
+                if (task.advance(8)) {
                     iterator.remove();
                 }
             }

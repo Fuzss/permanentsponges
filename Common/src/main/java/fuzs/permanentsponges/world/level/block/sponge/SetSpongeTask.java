@@ -36,6 +36,12 @@ public class SetSpongeTask extends AbstractSpongeTask {
         return new SetSpongeTask(level, replacement, source, distance, vanish);
     }
 
+    public static boolean instantSetTask(ServerLevel level, Block replacement, BlockPos source, int distance, boolean vanish) {
+        SetSpongeTask task = new SetSpongeTask(level, replacement, source, distance, false);
+        task.finishQuickly();
+        return vanish && task.hasDestroyedSource;
+    }
+
     @Override
     public boolean containsBlocksAtChunkPos(int x, int z) {
         return Math.abs(SectionPos.blockToSection(this.source.getX()) - x) <= 1 && Math.abs(SectionPos.blockToSection(this.source.getZ()) - z) <= 1;
@@ -88,12 +94,12 @@ public class SetSpongeTask extends AbstractSpongeTask {
     }
 
     private boolean shouldDestroySource(FluidState fluidstate) {
-        return this.vanish && CommonAbstractions.INSTANCE.getFluidTemperature(fluidstate) >= 1000;
+        return CommonAbstractions.INSTANCE.getFluidTemperature(fluidstate) >= 1000;
     }
 
     private void destroySource() {
         if (!this.hasDestroyedSource) {
-            this.level.setBlock(this.source, this.replacement.defaultBlockState(), 3);
+            if (this.vanish) this.level.setBlock(this.source, this.replacement.defaultBlockState(), 3);
             this.hasDestroyedSource = true;
         }
     }
