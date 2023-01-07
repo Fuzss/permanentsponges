@@ -1,7 +1,8 @@
-package fuzs.permanentsponges.core.sponge;
+package fuzs.permanentsponges.world.level.block.sponge;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -31,7 +32,7 @@ public class SpongeScheduler {
         }
     }
 
-    public void onServerWorld$Unload(ServerLevel level) {
+    public void onServerWorld$Unload(MinecraftServer server, ServerLevel level) {
         Iterator<AbstractSpongeTask> iterator = this.tasks.values().iterator();
         while (iterator.hasNext()) {
             AbstractSpongeTask task = iterator.next();
@@ -40,7 +41,7 @@ public class SpongeScheduler {
         }
     }
 
-    public void onChunk$Unload(ChunkAccess chunk) {
+    public void onChunk$Unload(ServerLevel level, ChunkAccess chunk) {
         if (chunk instanceof LevelChunk levelChunk) {
             Iterator<AbstractSpongeTask> iterator = this.tasks.values().iterator();
             while (iterator.hasNext()) {

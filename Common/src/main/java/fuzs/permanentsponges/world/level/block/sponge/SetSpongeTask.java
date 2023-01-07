@@ -1,4 +1,4 @@
-package fuzs.permanentsponges.core.sponge;
+package fuzs.permanentsponges.world.level.block.sponge;
 
 import com.google.common.collect.Lists;
 import fuzs.permanentsponges.core.CommonAbstractions;

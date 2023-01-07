@@ -1,10 +1,10 @@
 package fuzs.permanentsponges.world.level.block;
 
 import fuzs.permanentsponges.init.ModRegistry;
-import fuzs.permanentsponges.core.sponge.AbstractSpongeTask;
-import fuzs.permanentsponges.core.sponge.RemoveSpongeTask;
-import fuzs.permanentsponges.core.sponge.SetSpongeTask;
-import fuzs.permanentsponges.core.sponge.SpongeScheduler;
+import fuzs.permanentsponges.world.level.block.sponge.AbstractSpongeTask;
+import fuzs.permanentsponges.world.level.block.sponge.RemoveSpongeTask;
+import fuzs.permanentsponges.world.level.block.sponge.SetSpongeTask;
+import fuzs.permanentsponges.world.level.block.sponge.SpongeScheduler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

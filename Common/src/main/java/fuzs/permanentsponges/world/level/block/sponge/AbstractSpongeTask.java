@@ -1,4 +1,4 @@
-package fuzs.permanentsponges.core.sponge;
+package fuzs.permanentsponges.world.level.block.sponge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
