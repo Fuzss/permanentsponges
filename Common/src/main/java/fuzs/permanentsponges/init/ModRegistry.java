@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import fuzs.permanentsponges.PermanentSponges;
 import fuzs.permanentsponges.world.item.SpongeOnAStickItem;
 import fuzs.permanentsponges.world.level.block.PermanentSpongeBlock;
+import fuzs.permanentsponges.world.level.block.sponge.SpongeMaterial;
 import fuzs.puzzleslib.client.core.ClientFactories;
 import fuzs.puzzleslib.core.CommonFactories;
 import fuzs.puzzleslib.init.RegistryManager;
@@ -37,10 +38,10 @@ public class ModRegistry {
     });
     private static final RegistryManager REGISTRY = CommonFactories.INSTANCE.registration(PermanentSponges.MOD_ID);
     public static final RegistryReference<Block> SPONGE_AIR_BLOCK = REGISTRY.registerBlock("sponge_air", () -> new AirBlock(BlockBehaviour.Properties.of(Material.STRUCTURAL_AIR).noCollission().noLootTable().air()) {});
-    public static final RegistryReference<Block> AQUEOUS_SPONGE_BLOCK = REGISTRY.registerBlockWithItem("aqueous_sponge", () -> new PermanentSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).randomTicks(), true), CREATIVE_MODE_TAB);
-    public static final RegistryReference<Block> MAGMATIC_SPONGE_BLOCK = REGISTRY.registerBlockWithItem("magmatic_sponge", () -> new PermanentSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).randomTicks(), false), CREATIVE_MODE_TAB);
-    public static final RegistryReference<Item> AQUEOUS_SPONGE_ON_A_STICK = REGISTRY.registerItem("aqueous_sponge_on_a_stick", () -> new SpongeOnAStickItem(new Item.Properties().tab(CREATIVE_MODE_TAB).durability(17), true));
-    public static final RegistryReference<Item> MAGMATIC_SPONGE_ON_A_STICK_ITEM = REGISTRY.registerItem("magmatic_sponge_on_a_stick", () -> new SpongeOnAStickItem(new Item.Properties().tab(CREATIVE_MODE_TAB).durability(33), false));
+    public static final RegistryReference<Block> AQUEOUS_SPONGE_BLOCK = REGISTRY.registerBlockWithItem("aqueous_sponge", () -> new PermanentSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).randomTicks(), SpongeMaterial.AQUATIC), CREATIVE_MODE_TAB);
+    public static final RegistryReference<Block> MAGMATIC_SPONGE_BLOCK = REGISTRY.registerBlockWithItem("magmatic_sponge", () -> new PermanentSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).randomTicks(), SpongeMaterial.MAGMATIC), CREATIVE_MODE_TAB);
+    public static final RegistryReference<Item> AQUEOUS_SPONGE_ON_A_STICK = REGISTRY.registerItem("aqueous_sponge_on_a_stick", () -> new SpongeOnAStickItem(new Item.Properties().tab(CREATIVE_MODE_TAB).durability(65), SpongeMaterial.AQUATIC));
+    public static final RegistryReference<Item> MAGMATIC_SPONGE_ON_A_STICK_ITEM = REGISTRY.registerItem("magmatic_sponge_on_a_stick", () -> new SpongeOnAStickItem(new Item.Properties().tab(CREATIVE_MODE_TAB).durability(129), SpongeMaterial.MAGMATIC));
     public static final RegistryReference<PoiType> PERMANENT_SPONGE_POI_TYPE = REGISTRY.registerPoiTypeBuilder("permanent_sponge", () -> {
         Set<BlockState> allSpongeStates = Stream.of(AQUEOUS_SPONGE_BLOCK.get(), MAGMATIC_SPONGE_BLOCK.get())
                 .flatMap(block -> block.getStateDefinition().getPossibleStates().stream())

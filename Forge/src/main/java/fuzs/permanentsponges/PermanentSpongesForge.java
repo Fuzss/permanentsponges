@@ -1,10 +1,10 @@
 package fuzs.permanentsponges;
 
-import fuzs.permanentsponges.world.level.block.sponge.SpongeScheduler;
 import fuzs.permanentsponges.data.ModBlockStateProvider;
 import fuzs.permanentsponges.data.ModBlockTagsProvider;
 import fuzs.permanentsponges.data.ModLanguageProvider;
 import fuzs.permanentsponges.data.ModRecipeProvider;
+import fuzs.permanentsponges.world.level.block.sponge.SpongeScheduler;
 import fuzs.puzzleslib.core.CommonFactories;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +15,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
@@ -31,8 +30,10 @@ public class PermanentSpongesForge {
 
     private static void registerHandlers() {
         MinecraftForge.EVENT_BUS.addListener((final TickEvent.LevelTickEvent evt) -> {
-            if (evt.side == LogicalSide.SERVER && evt.phase == TickEvent.Phase.END) {
-                SpongeScheduler.INSTANCE.onServerWorld$Tick((ServerLevel) evt.level);
+            if (evt.phase == TickEvent.Phase.END) {
+                if (evt.level instanceof ServerLevel level) {
+                    SpongeScheduler.INSTANCE.onServerWorld$Tick(level);
+                }
             }
         });
         MinecraftForge.EVENT_BUS.addListener((final ChunkEvent.Unload evt) -> {

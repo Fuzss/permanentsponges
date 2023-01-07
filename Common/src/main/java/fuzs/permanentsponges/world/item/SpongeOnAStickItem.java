@@ -1,10 +1,12 @@
 package fuzs.permanentsponges.world.item;
 
+import fuzs.permanentsponges.PermanentSponges;
+import fuzs.permanentsponges.config.ServerConfig;
 import fuzs.permanentsponges.world.level.block.sponge.SetSpongeTask;
+import fuzs.permanentsponges.world.level.block.sponge.SpongeMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,11 +23,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class SpongeOnAStickItem extends Item {
-    private final boolean vanish;
+    private final SpongeMaterial spongeMaterial;
 
-    public SpongeOnAStickItem(Properties properties, boolean vanish) {
+    public SpongeOnAStickItem(Properties properties, SpongeMaterial spongeMaterial) {
         super(properties);
-        this.vanish = vanish;
+        this.spongeMaterial = spongeMaterial;
     }
 
     @Override
@@ -45,10 +47,16 @@ public class SpongeOnAStickItem extends Item {
             } else {
                 BlockState blockState = level.getBlockState(blockPos);
                 if (blockState.getBlock() instanceof BucketPickup bucketPickup) {
+                    int cooldownTicks = PermanentSponges.CONFIG.get(ServerConfig.class).stickCooldownTicks;
+                    if (cooldownTicks > 0) {
+                        player.getCooldowns().addCooldown(this, cooldownTicks);
+                    }
                     if (level instanceof ServerLevel serverLevel) {
-                        boolean vanish = SetSpongeTask.instantSetTask(serverLevel, Blocks.AIR, blockPos, 4, this.vanish);
-                        int hurtAmount = vanish ? itemStack.getMaxDamage() : 1;
-                        itemStack.hurtAndBreak(hurtAmount, player, playerx -> playerx.broadcastBreakEvent(usedHand));
+                        int distance = this.spongeMaterial.getStickDistance();
+                        boolean vanish = this.spongeMaterial.shouldDestroyTouchingHot();
+                        boolean hasDestroyedSource = SetSpongeTask.instant(serverLevel, Blocks.AIR, blockPos, distance, vanish);
+                        if (hasDestroyedSource) itemStack.setDamageValue(itemStack.getMaxDamage() - 1);
+                        itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(usedHand));
                     }
                     player.awardStat(Stats.ITEM_USED.get(this));
                     bucketPickup.getPickupSound().ifPresent(soundEvent -> player.playSound(soundEvent, 1.0F, 1.0F));

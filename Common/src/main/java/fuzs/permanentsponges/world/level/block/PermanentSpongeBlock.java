@@ -1,10 +1,7 @@
 package fuzs.permanentsponges.world.level.block;
 
 import fuzs.permanentsponges.init.ModRegistry;
-import fuzs.permanentsponges.world.level.block.sponge.AbstractSpongeTask;
-import fuzs.permanentsponges.world.level.block.sponge.RemoveSpongeTask;
-import fuzs.permanentsponges.world.level.block.sponge.SetSpongeTask;
-import fuzs.permanentsponges.world.level.block.sponge.SpongeScheduler;
+import fuzs.permanentsponges.world.level.block.sponge.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -14,33 +11,42 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("deprecation")
 public class PermanentSpongeBlock extends Block {
-    private final boolean vanish;
+    private final SpongeMaterial spongeMaterial;
 
-    public PermanentSpongeBlock(Properties properties, boolean vanish) {
+    public PermanentSpongeBlock(Properties properties, SpongeMaterial spongeMaterial) {
         super(properties);
-        this.vanish = vanish;
+        this.spongeMaterial = spongeMaterial;
     }
 
     @Override
     public void onPlace(BlockState newState, Level level, BlockPos pos, BlockState oldState, boolean p_56815_) {
         if (!oldState.is(newState.getBlock())) {
-            AbstractSpongeTask task = SetSpongeTask.createSetTask((ServerLevel) level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6, this.vanish);
+            int distance = this.spongeMaterial.getBlockDistance();
+            boolean vanish = this.spongeMaterial.shouldDestroyTouchingHot();
+            AbstractSpongeTask task = new SetSpongeTask((ServerLevel) level, pos, distance, this.getReplacementBlock(), vanish);
             SpongeScheduler.INSTANCE.scheduleTask(task);
         }
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        AbstractSpongeTask task = SetSpongeTask.createSetTask(level, ModRegistry.SPONGE_AIR_BLOCK.get(), pos, 6, this.vanish);
+        int distance = this.spongeMaterial.getBlockDistance();
+        boolean vanish = this.spongeMaterial.shouldDestroyTouchingHot();
+        AbstractSpongeTask task = new SetSpongeTask(level, pos, distance, this.getReplacementBlock(), vanish);
         SpongeScheduler.INSTANCE.scheduleTask(task);
     }
 
     @Override
     public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean p_50941_) {
         if (!oldState.is(newState.getBlock())) {
-            AbstractSpongeTask task = RemoveSpongeTask.createRemoveTask((ServerLevel) level, pos, 6);
+            int distance = this.spongeMaterial.getBlockDistance();
+            AbstractSpongeTask task = new RemoveSpongeTask((ServerLevel) level, pos, distance, this.getReplacementBlock());
             SpongeScheduler.INSTANCE.scheduleTask(task);
             super.onRemove(oldState, level, pos, newState, p_50941_);
         }
+    }
+
+    protected Block getReplacementBlock() {
+        return ModRegistry.SPONGE_AIR_BLOCK.get();
     }
 }
