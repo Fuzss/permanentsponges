@@ -1,12 +1,13 @@
 package fuzs.permanentsponges;
 
-import fuzs.permanentsponges.data.ModBlockStateProvider;
-import fuzs.permanentsponges.data.ModBlockTagsProvider;
 import fuzs.permanentsponges.data.ModLanguageProvider;
+import fuzs.permanentsponges.data.ModModelProvider;
 import fuzs.permanentsponges.data.ModRecipeProvider;
 import fuzs.permanentsponges.world.level.block.sponge.SpongeScheduler;
-import fuzs.puzzleslib.core.CommonFactories;
+import fuzs.puzzleslib.api.core.v1.ModConstructor;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -18,17 +19,20 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
+import java.util.concurrent.CompletableFuture;
+
 @Mod(PermanentSponges.MOD_ID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PermanentSpongesForge {
 
     @SubscribeEvent
     public static void onConstructMod(final FMLConstructModEvent evt) {
-        CommonFactories.INSTANCE.modConstructor(PermanentSponges.MOD_ID).accept(new PermanentSponges());
+        ModConstructor.construct(PermanentSponges.MOD_ID, PermanentSponges::new);
         registerHandlers();
     }
 
     private static void registerHandlers() {
+        // TODO replace with common implementation in 1.19.4
         MinecraftForge.EVENT_BUS.addListener((final TickEvent.LevelTickEvent evt) -> {
             if (evt.phase == TickEvent.Phase.END) {
                 if (evt.level instanceof ServerLevel level) {
@@ -50,11 +54,12 @@ public class PermanentSpongesForge {
 
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent evt) {
-        DataGenerator generator = evt.getGenerator();
-        final ExistingFileHelper existingFileHelper = evt.getExistingFileHelper();
-        generator.addProvider(true, new ModRecipeProvider(generator));
-        generator.addProvider(true, new ModLanguageProvider(generator, PermanentSponges.MOD_ID));
-        generator.addProvider(true, new ModBlockStateProvider(generator, PermanentSponges.MOD_ID, existingFileHelper));
-        generator.addProvider(true, new ModBlockTagsProvider(generator, PermanentSponges.MOD_ID, existingFileHelper));
+        final DataGenerator dataGenerator = evt.getGenerator();
+        final PackOutput packOutput = dataGenerator.getPackOutput();
+        final CompletableFuture<HolderLookup.Provider> lookupProvider = evt.getLookupProvider();
+        final ExistingFileHelper fileHelper = evt.getExistingFileHelper();
+        dataGenerator.addProvider(true, new ModModelProvider(packOutput, PermanentSponges.MOD_ID, fileHelper));
+        dataGenerator.addProvider(true, new ModLanguageProvider(packOutput, PermanentSponges.MOD_ID));
+        dataGenerator.addProvider(true, new ModRecipeProvider(packOutput));
     }
 }
