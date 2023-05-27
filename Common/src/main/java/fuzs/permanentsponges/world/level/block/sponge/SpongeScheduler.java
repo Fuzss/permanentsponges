@@ -22,7 +22,7 @@ public class SpongeScheduler {
         this.tasks.put(task.position(), task);
     }
 
-    public void onServerWorld$Tick(ServerLevel level) {
+    public void onServerWorld$Tick(MinecraftServer server, ServerLevel level) {
         Iterator<AbstractSpongeTask> iterator = this.tasks.values().iterator();
         while (iterator.hasNext()) {
             AbstractSpongeTask task = iterator.next();

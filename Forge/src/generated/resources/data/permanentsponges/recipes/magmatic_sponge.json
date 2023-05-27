@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "permanentsponges:magmatic_sponge"
-  }
+  },
+  "show_notification": true
 }

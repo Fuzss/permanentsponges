@@ -1,9 +1,9 @@
-// 1.19.3	2023-05-22T15:53:19.941887	Recipes
+// 1.19.4	2023-05-27T19:42:09.173217	Recipes
 584e353ba05ca4d32fe19a9f5a2c563f5f247207 data/permanentsponges/advancements/recipes/building_blocks/aqueous_sponge.json
 0e1c9f9f057c9637acc46a6e1c7dab2d24439720 data/permanentsponges/advancements/recipes/building_blocks/magmatic_sponge.json
 8d5ac8a6c6d173b1b93cb4836c5c4a420f9c4954 data/permanentsponges/advancements/recipes/tools/aqueous_sponge_on_a_stick.json
 a7f7fe4f28b0479242c570d295700bd1da5cc474 data/permanentsponges/advancements/recipes/tools/magmatic_sponge_on_a_stick.json
-f0909d9fac1c8985cc7ecdc72c3711b70f0b0582 data/permanentsponges/recipes/aqueous_sponge.json
+932ca495b7dd28d139863c9310b39d99b89a31e6 data/permanentsponges/recipes/aqueous_sponge.json
 d623e954cb0cf31810c19c0abed44b352c7962be data/permanentsponges/recipes/aqueous_sponge_on_a_stick.json
-0ed74fde9e63326177a0c460c8774b93b3676227 data/permanentsponges/recipes/magmatic_sponge.json
+8b637c55661fb19ee4e642a96ea6a146838b856d data/permanentsponges/recipes/magmatic_sponge.json
 b40fb795b6561e1576e389567227df3dd5840714 data/permanentsponges/recipes/magmatic_sponge_on_a_stick.json
