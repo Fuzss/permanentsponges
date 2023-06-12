@@ -30,5 +30,6 @@
     "recipes": [
       "permanentsponges:aqueous_sponge"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

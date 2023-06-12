@@ -30,5 +30,6 @@
     "recipes": [
       "permanentsponges:magmatic_sponge"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

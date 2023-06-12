@@ -1,5 +1,6 @@
 package fuzs.permanentsponges;
 
+import fuzs.permanentsponges.data.ModBlockTagsProvider;
 import fuzs.permanentsponges.data.ModLanguageProvider;
 import fuzs.permanentsponges.data.ModModelProvider;
 import fuzs.permanentsponges.data.ModRecipeProvider;
@@ -30,6 +31,7 @@ public class PermanentSpongesForge {
         final PackOutput packOutput = dataGenerator.getPackOutput();
         final CompletableFuture<HolderLookup.Provider> lookupProvider = evt.getLookupProvider();
         final ExistingFileHelper fileHelper = evt.getExistingFileHelper();
+        dataGenerator.addProvider(true, new ModBlockTagsProvider(packOutput, lookupProvider, PermanentSponges.MOD_ID, fileHelper));
         dataGenerator.addProvider(true, new ModModelProvider(packOutput, PermanentSponges.MOD_ID, fileHelper));
         dataGenerator.addProvider(true, new ModLanguageProvider(packOutput, PermanentSponges.MOD_ID));
         dataGenerator.addProvider(true, new ModRecipeProvider(packOutput));

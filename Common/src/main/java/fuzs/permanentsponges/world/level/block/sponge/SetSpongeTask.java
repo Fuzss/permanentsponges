@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
 
 import java.util.Queue;
 import java.util.stream.Collectors;
@@ -65,7 +64,7 @@ public class SetSpongeTask extends AbstractSpongeTask {
             }
         } else if (state.getBlock() instanceof LiquidBlock || state.isAir()) {
             this.level.setBlock(pos, this.replacement.defaultBlockState(), 3);
-        } else if (state.getMaterial() == Material.WATER_PLANT || state.getMaterial() == Material.REPLACEABLE_WATER_PLANT) {
+        } else if (state.is(Blocks.KELP) || state.is(Blocks.KELP_PLANT) || state.is(Blocks.SEAGRASS) || state.is(Blocks.TALL_SEAGRASS)) {
             BlockEntity blockentity = state.hasBlockEntity() ? this.level.getBlockEntity(pos) : null;
             Block.dropResources(state, this.level, pos, blockentity);
             this.level.setBlock(pos, this.replacement.defaultBlockState(), 3);
