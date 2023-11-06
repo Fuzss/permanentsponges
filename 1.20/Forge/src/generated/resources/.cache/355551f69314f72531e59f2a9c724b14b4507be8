@@ -1,12 +1,9 @@
-// 1.20.1	2023-06-28T07:50:51.421258	Block States: permanentsponges
+// 1.20.1	2023-11-06T11:18:21.717936	Block States: permanentsponges
 bc08891eae78ccb01464d1dc4f77a34b078cfeab assets/permanentsponges/blockstates/aqueous_sponge.json
 61a938cbb9ef178adb2214dda2b9fa4f98c0556d assets/permanentsponges/blockstates/magmatic_sponge.json
-bdb7dde5aace43fa6b029537f802f6ab18e78195 assets/permanentsponges/blockstates/sponge_air.json
 74c261693530585ec20ea816381757755be00958 assets/permanentsponges/models/block/aqueous_sponge.json
 b667a9179b7d48cb21d94830d38feaaa4afd82fa assets/permanentsponges/models/block/magmatic_sponge.json
-bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f assets/permanentsponges/models/block/sponge_air.json
 99f867382fbcc4fc3140269c4c5b8515d801cc49 assets/permanentsponges/models/item/aqueous_sponge.json
 55b6d8a2831cf2dd2eda0bbbd54b0a1c244884ff assets/permanentsponges/models/item/aqueous_sponge_on_a_stick.json
 a63cf7af15aa0c3767468288990f489c1adfce96 assets/permanentsponges/models/item/magmatic_sponge.json
 ad077f1f4248f3c4cf6973533c25eeaaf9902edf assets/permanentsponges/models/item/magmatic_sponge_on_a_stick.json
-e2f62bedb5ec5d74838bb355bded9c47f1ab9eb1 assets/permanentsponges/models/item/sponge_air.json

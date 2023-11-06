@@ -2,20 +2,20 @@ package fuzs.permanentsponges.data;
 
 import fuzs.permanentsponges.init.ModRegistry;
 import fuzs.puzzleslib.api.data.v1.AbstractRecipeProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.data.event.GatherDataEvent;
 
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends AbstractRecipeProvider {
 
-    public ModRecipeProvider(PackOutput packOutput) {
-        super(packOutput);
+    public ModRecipeProvider(GatherDataEvent evt, String modId) {
+        super(evt, modId);
     }
 
     @Override

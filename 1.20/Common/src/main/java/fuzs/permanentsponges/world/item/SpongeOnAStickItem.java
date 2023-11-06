@@ -2,8 +2,8 @@ package fuzs.permanentsponges.world.item;
 
 import fuzs.permanentsponges.PermanentSponges;
 import fuzs.permanentsponges.config.ServerConfig;
-import fuzs.permanentsponges.world.level.block.sponge.SetSpongeTask;
-import fuzs.permanentsponges.world.level.block.sponge.SpongeMaterial;
+import fuzs.permanentsponges.world.level.block.PermanentSpongeBlock;
+import fuzs.permanentsponges.world.level.block.SpongeMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -31,8 +30,8 @@ public class SpongeOnAStickItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        ItemStack itemStack = player.getItemInHand(usedHand);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        ItemStack itemStack = player.getItemInHand(interactionHand);
         BlockHitResult blockHitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
         if (blockHitResult.getType() == HitResult.Type.MISS) {
             return InteractionResultHolder.pass(itemStack);
@@ -52,11 +51,12 @@ public class SpongeOnAStickItem extends Item {
                         player.getCooldowns().addCooldown(this, cooldownTicks);
                     }
                     if (level instanceof ServerLevel serverLevel) {
-                        int distance = this.spongeMaterial.getStickDistance();
-                        boolean vanish = this.spongeMaterial.shouldDestroyTouchingHot();
-                        boolean hasDestroyedSource = SetSpongeTask.instant(serverLevel, Blocks.AIR, blockPos, distance, vanish);
-                        if (hasDestroyedSource) itemStack.setDamageValue(itemStack.getMaxDamage() - 1);
-                        itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(usedHand));
+                        if (PermanentSpongeBlock.removeAllLiquid(this.spongeMaterial, serverLevel, blockPos, true)) {
+                            itemStack.setDamageValue(itemStack.getMaxDamage() - 1);
+                        }
+                        itemStack.hurtAndBreak(1, player, $ -> {
+                            player.broadcastBreakEvent(interactionHand);
+                        });
                     }
                     player.awardStat(Stats.ITEM_USED.get(this));
                     bucketPickup.getPickupSound().ifPresent(soundEvent -> player.playSound(soundEvent, 1.0F, 1.0F));

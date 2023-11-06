@@ -1,24 +1,21 @@
-package fuzs.permanentsponges.data;
+package fuzs.permanentsponges.data.client;
 
 import fuzs.permanentsponges.init.ModRegistry;
 import fuzs.puzzleslib.api.data.v1.AbstractModelProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 
 public class ModModelProvider extends AbstractModelProvider {
 
-    public ModModelProvider(PackOutput packOutput, String modId, ExistingFileHelper fileHelper) {
-        super(packOutput, modId, fileHelper);
+    public ModModelProvider(GatherDataEvent evt, String modId) {
+        super(evt, modId);
     }
 
     @Override
     protected void registerStatesAndModels() {
-        this.emptyBlock(ModRegistry.SPONGE_AIR_BLOCK.get());
         this.simpleBlock(ModRegistry.AQUEOUS_SPONGE_BLOCK.get());
         this.simpleBlock(ModRegistry.MAGMATIC_SPONGE_BLOCK.get());
-        this.simpleBlockItem(ModRegistry.SPONGE_AIR_BLOCK.get());
         this.simpleBlockItem(ModRegistry.AQUEOUS_SPONGE_BLOCK.get());
         this.simpleBlockItem(ModRegistry.MAGMATIC_SPONGE_BLOCK.get());
         this.itemModels().basicItem(ModRegistry.AQUEOUS_SPONGE_ON_A_STICK_ITEM.get());

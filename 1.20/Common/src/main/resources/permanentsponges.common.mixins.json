@@ -6,7 +6,9 @@
   "refmap": "permanentsponges.refmap.json",
   "plugin": "fuzs.permanentsponges.mixin.ModMixinConfigPlugin",
   "mixins": [
-    "FlowingFluidMixin"
+    "FlowingFluidMixin",
+    "accessor.BucketItemAccessor",
+    "accessor.ItemAccessor"
   ],
   "client": [
   ],
