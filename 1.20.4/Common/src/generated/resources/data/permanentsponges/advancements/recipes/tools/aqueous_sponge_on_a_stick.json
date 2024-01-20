@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aqueous_sponge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "permanentsponges:aqueous_sponge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "permanentsponges:aqueous_sponge_on_a_stick"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aqueous_sponge"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "permanentsponges:aqueous_sponge_on_a_stick"
+    ]
+  }
+}

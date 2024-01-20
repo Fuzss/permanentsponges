@@ -74,7 +74,7 @@ public class TryEmptyBucketHandler {
             BlockState blockState = level.getBlockState(pos);
             Block block = blockState.getBlock();
             boolean bl = blockState.canBeReplaced(fluid);
-            boolean bl2 = blockState.isAir() || bl || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, pos, blockState, fluid);
+            boolean bl2 = blockState.isAir() || bl || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(player, level, pos, blockState, fluid);
             if (!bl2) {
                 return result != null && emptyContents(player, level, result.getBlockPos().relative(result.getDirection()), null, fluid);
             } else if (level instanceof ServerLevel serverLevel && LiquidAbsorptionHelper.tryPreventLiquidFromEntering(serverLevel, pos, fluid)) {

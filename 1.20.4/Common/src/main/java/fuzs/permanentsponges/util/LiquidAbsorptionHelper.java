@@ -80,7 +80,7 @@ public class LiquidAbsorptionHelper {
     }
 
     private static void removeLiquid(Level level, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
-        if (!(blockState.getBlock() instanceof BucketPickup) || ((BucketPickup) blockState.getBlock()).pickupBlock(level, blockPos, blockState).isEmpty()) {
+        if (!(blockState.getBlock() instanceof BucketPickup) || ((BucketPickup) blockState.getBlock()).pickupBlock(null, level, blockPos, blockState).isEmpty()) {
             boolean setToAir = false;
             if (blockState.getBlock() instanceof LiquidBlock || blockState.isAir()) {
                 setToAir = true;

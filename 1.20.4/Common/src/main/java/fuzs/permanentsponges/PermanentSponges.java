@@ -26,7 +26,7 @@ public class PermanentSponges implements ModConstructor {
     }
 
     private static void registerHandlers() {
-        PlayerInteractEvents.USE_ITEM_V2.register(TryEmptyBucketHandler::onUseItem);
+        PlayerInteractEvents.USE_ITEM.register(TryEmptyBucketHandler::onUseItem);
     }
 
     @Override

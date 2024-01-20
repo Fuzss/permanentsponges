@@ -4,7 +4,7 @@ import fuzs.permanentsponges.PermanentSponges;
 import fuzs.permanentsponges.world.item.SpongeOnAStickItem;
 import fuzs.permanentsponges.world.level.block.PermanentSpongeBlock;
 import fuzs.permanentsponges.world.level.block.SpongeMaterial;
-import fuzs.puzzleslib.api.init.v3.RegistryManager;
+import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.api.init.v3.tags.BoundTagFactory;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
