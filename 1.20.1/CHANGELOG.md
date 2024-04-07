@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog].
 
+## [v8.1.2-1.20.1] - 2024-04-07
+### Fixed
+- Fix missing harvest tool and missing block loot tables
+
 ## [v8.1.1-1.20.1] - 2023-11-09
 ### Changed
 - Updated to Puzzles Lib v8.1.8
