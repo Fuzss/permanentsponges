@@ -2,19 +2,15 @@ package fuzs.permanentsponges.world.level.block;
 
 import fuzs.permanentsponges.util.LiquidAbsorptionHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class PermanentSpongeBlock extends Block {
     private final SpongeMaterial spongeMaterial;
 
@@ -24,9 +20,12 @@ public class PermanentSpongeBlock extends Block {
     }
 
     @Override
-    public void onPlace(BlockState newState, Level level, BlockPos pos, BlockState oldState, boolean p_56815_) {
+    public void onPlace(BlockState newState, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         if (level instanceof ServerLevel serverLevel && !oldState.is(newState.getBlock())) {
-            removeAllLiquid(this.spongeMaterial, serverLevel, pos, false, this.spongeMaterial.getPoiType());
+            // the poi type is added after this is called which will log an error when trying to remove the record where there was none added yet
+            serverLevel.getServer().tell(new TickTask(serverLevel.getServer().getTickCount(), () -> {
+                removeAllLiquid(this.spongeMaterial, serverLevel, pos, false);
+            }));
         }
     }
 
@@ -36,13 +35,9 @@ public class PermanentSpongeBlock extends Block {
     }
 
     public static boolean removeAllLiquid(SpongeMaterial spongeMaterial, ServerLevel level, BlockPos pos, boolean fromStick) {
-        return removeAllLiquid(spongeMaterial, level, pos, fromStick, null);
-    }
-
-    public static boolean removeAllLiquid(SpongeMaterial spongeMaterial, ServerLevel level, BlockPos pos, boolean fromStick, @Nullable Holder.Reference<PoiType> poiType) {
         int spongeRadius = fromStick ? spongeMaterial.getStickDistance() : spongeMaterial.getBlockDistance();
         boolean destroySource = !fromStick && spongeMaterial.shouldDestroyTouchingHot();
-        return LiquidAbsorptionHelper.removeAllLiquid(level, pos, spongeRadius, destroySource, poiType);
+        return LiquidAbsorptionHelper.removeAllLiquid(level, pos, spongeRadius, destroySource);
     }
 
     @Override

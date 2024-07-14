@@ -18,6 +18,7 @@ public class PermanentSponges implements ModConstructor {
     public static final String MOD_ID = "permanentsponges";
     public static final String MOD_NAME = "Permanent Sponges";
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+
     public static final ConfigHolder CONFIG = ConfigHolder.builder(MOD_ID).server(ServerConfig.class);
 
     @Override

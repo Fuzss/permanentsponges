@@ -7,4 +7,8 @@ public interface CommonAbstractions {
     CommonAbstractions INSTANCE = ServiceProviderHelper.load(CommonAbstractions.class);
 
     int getFluidTemperature(Fluid fluid);
+
+    default boolean isHotFluid(Fluid fluid) {
+        return this.getFluidTemperature(fluid) >= 1000;
+    }
 }

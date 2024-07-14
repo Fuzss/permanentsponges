@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -64,24 +63,26 @@ public class TryEmptyBucketHandler {
                 }
             }
         }
+
         return EventResultHolder.pass();
     }
 
-    private static boolean emptyContents(@Nullable Player player, Level level, BlockPos pos, @Nullable BlockHitResult result, Fluid fluid) {
+    private static boolean emptyContents(@Nullable Player player, Level level, BlockPos blockPos, @Nullable BlockHitResult hitResult, Fluid fluid) {
         if (!(fluid instanceof FlowingFluid)) {
             return false;
         } else {
-            BlockState blockState = level.getBlockState(pos);
+            BlockState blockState = level.getBlockState(blockPos);
             Block block = blockState.getBlock();
             boolean bl = blockState.canBeReplaced(fluid);
-            boolean bl2 = blockState.isAir() || bl || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(player, level, pos, blockState, fluid);
+            boolean bl2 = blockState.isAir() || bl || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(player, level, blockPos, blockState, fluid);
             if (!bl2) {
-                return result != null && emptyContents(player, level, result.getBlockPos().relative(result.getDirection()), null, fluid);
-            } else if (level instanceof ServerLevel serverLevel && LiquidAbsorptionHelper.tryPreventLiquidFromEntering(serverLevel, pos, fluid)) {
-                level.levelEvent(LevelEvent.LAVA_FIZZ, pos, 0);
+                return hitResult != null && emptyContents(player, level, hitResult.getBlockPos().relative(hitResult.getDirection()), null, fluid);
+            } else if (level instanceof ServerLevel serverLevel && LiquidAbsorptionHelper.tryPreventLiquidFromEntering(serverLevel, blockPos, fluid)) {
+                LiquidAbsorptionHelper.removeLiquidEffects(level, blockPos, fluid);
                 return true;
             }
         }
+
         return false;
     }
 }
