@@ -1,3 +1,3 @@
-// 1.20.4	2024-04-07T08:53:45.205986	Tags for minecraft:block mod id vanilla
-5616f71243eadd29f31dcfdf3a07d007d5dee2b6 data/minecraft/tags/blocks/mineable/hoe.json
-5616f71243eadd29f31dcfdf3a07d007d5dee2b6 data/permanentsponges/tags/blocks/permanent_sponges.json
+// 1.21	2024-07-14T08:19:55.073553	Tags for minecraft:block mod id vanilla
+5616f71243eadd29f31dcfdf3a07d007d5dee2b6 data/minecraft/tags/block/mineable/hoe.json
+5616f71243eadd29f31dcfdf3a07d007d5dee2b6 data/permanentsponges/tags/block/permanent_sponges.json

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "permanentsponges:aqueous_sponge"
-            ]
+            "items": "permanentsponges:aqueous_sponge"
           }
         ]
       },

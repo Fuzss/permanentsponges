@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "permanentsponges:magmatic_sponge"
-            ]
+            "items": "permanentsponges:magmatic_sponge"
           }
         ]
       },

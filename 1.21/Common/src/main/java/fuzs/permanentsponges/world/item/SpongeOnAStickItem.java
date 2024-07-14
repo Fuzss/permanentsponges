@@ -4,6 +4,7 @@ import fuzs.permanentsponges.PermanentSponges;
 import fuzs.permanentsponges.config.ServerConfig;
 import fuzs.permanentsponges.world.level.block.PermanentSpongeBlock;
 import fuzs.permanentsponges.world.level.block.SpongeMaterial;
+import fuzs.puzzleslib.api.item.v2.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -54,9 +55,7 @@ public class SpongeOnAStickItem extends Item {
                         if (PermanentSpongeBlock.removeAllLiquid(this.spongeMaterial, serverLevel, blockPos, true)) {
                             itemStack.setDamageValue(itemStack.getMaxDamage() - 1);
                         }
-                        itemStack.hurtAndBreak(1, player, $ -> {
-                            player.broadcastBreakEvent(interactionHand);
-                        });
+                        ItemHelper.hurtAndBreak(itemStack, 1, player, interactionHand);
                     }
                     player.awardStat(Stats.ITEM_USED.get(this));
                     bucketPickup.getPickupSound().ifPresent(soundEvent -> player.playSound(soundEvent, 1.0F, 1.0F));

@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:magma_cream"
+      "item": "minecraft:slime_ball"
     },
     "W": {
       "tag": "minecraft:wool"
@@ -15,6 +15,7 @@
     " # "
   ],
   "result": {
-    "item": "permanentsponges:magmatic_sponge"
+    "count": 1,
+    "id": "permanentsponges:aqueous_sponge"
   }
 }
