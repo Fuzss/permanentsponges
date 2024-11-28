@@ -18,31 +18,39 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
 
     @Override
     public void addRecipes(RecipeOutput recipeOutput) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModRegistry.AQUEOUS_SPONGE_BLOCK.value())
+        ShapedRecipeBuilder.shaped(this.items(),
+                        RecipeCategory.BUILDING_BLOCKS,
+                        ModRegistry.AQUEOUS_SPONGE_BLOCK.value())
                 .define('W', ItemTags.WOOL)
                 .define('#', Items.SLIME_BALL)
                 .pattern(" # ")
                 .pattern("#W#")
                 .pattern(" # ")
-                .unlockedBy("has_slime_ball", has(Items.SLIME_BALL))
+                .unlockedBy("has_slime_ball", this.has(Items.SLIME_BALL))
                 .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModRegistry.MAGMATIC_SPONGE_BLOCK.value())
+        ShapedRecipeBuilder.shaped(this.items(),
+                        RecipeCategory.BUILDING_BLOCKS,
+                        ModRegistry.MAGMATIC_SPONGE_BLOCK.value())
                 .define('W', ItemTags.WOOL)
                 .define('#', Items.MAGMA_CREAM)
                 .pattern(" # ")
                 .pattern("#W#")
                 .pattern(" # ")
-                .unlockedBy("has_magma_cream", has(Items.MAGMA_CREAM))
+                .unlockedBy("has_magma_cream", this.has(Items.MAGMA_CREAM))
                 .save(recipeOutput);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ModRegistry.AQUEOUS_SPONGE_ON_A_STICK_ITEM.value())
+        ShapelessRecipeBuilder.shapeless(this.items(),
+                        RecipeCategory.TOOLS,
+                        ModRegistry.AQUEOUS_SPONGE_ON_A_STICK_ITEM.value())
                 .requires(Items.STICK)
                 .requires(ModRegistry.AQUEOUS_SPONGE_BLOCK.value())
-                .unlockedBy("has_aqueous_sponge", has(ModRegistry.AQUEOUS_SPONGE_BLOCK.value()))
+                .unlockedBy("has_aqueous_sponge", this.has(ModRegistry.AQUEOUS_SPONGE_BLOCK.value()))
                 .save(recipeOutput);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ModRegistry.MAGMATIC_SPONGE_ON_A_STICK_ITEM.value())
+        ShapelessRecipeBuilder.shapeless(this.items(),
+                        RecipeCategory.TOOLS,
+                        ModRegistry.MAGMATIC_SPONGE_ON_A_STICK_ITEM.value())
                 .requires(Items.STICK)
                 .requires(ModRegistry.MAGMATIC_SPONGE_BLOCK.value())
-                .unlockedBy("has_magmatic_sponge", has(ModRegistry.MAGMATIC_SPONGE_BLOCK.value()))
+                .unlockedBy("has_magmatic_sponge", this.has(ModRegistry.MAGMATIC_SPONGE_BLOCK.value()))
                 .save(recipeOutput);
     }
 }

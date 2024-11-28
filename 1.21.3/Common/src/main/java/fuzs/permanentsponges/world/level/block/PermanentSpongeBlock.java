@@ -14,7 +14,7 @@ import java.util.List;
 public class PermanentSpongeBlock extends Block {
     private final SpongeMaterial spongeMaterial;
 
-    public PermanentSpongeBlock(Properties properties, SpongeMaterial spongeMaterial) {
+    public PermanentSpongeBlock(SpongeMaterial spongeMaterial, Properties properties) {
         super(properties);
         this.spongeMaterial = spongeMaterial;
     }
@@ -23,7 +23,7 @@ public class PermanentSpongeBlock extends Block {
     public void onPlace(BlockState newState, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         if (level instanceof ServerLevel serverLevel && !oldState.is(newState.getBlock())) {
             // the poi type is added after this is called which will log an error when trying to remove the record where there was none added yet
-            serverLevel.getServer().tell(new TickTask(serverLevel.getServer().getTickCount(), () -> {
+            serverLevel.getServer().schedule(new TickTask(serverLevel.getServer().getTickCount(), () -> {
                 removeAllLiquid(this.spongeMaterial, serverLevel, pos, false);
             }));
         }
@@ -48,7 +48,8 @@ public class PermanentSpongeBlock extends Block {
             List<BlockPos> positions = LiquidAbsorptionHelper.getSpongeRadius(spongeRadius);
             for (int i = positions.size() - 1, j = 0; i >= 0; i--, j++) {
                 BlockPos blockPos = positions.get(i);
-                if (Math.abs(blockPos.getX()) == spongeRadius || Math.abs(blockPos.getY()) == spongeRadius || Math.abs(blockPos.getZ()) == spongeRadius) {
+                if (Math.abs(blockPos.getX()) == spongeRadius || Math.abs(blockPos.getY()) == spongeRadius ||
+                        Math.abs(blockPos.getZ()) == spongeRadius) {
                     blockPos = blockPos.offset(pos);
                     level.scheduleTick(blockPos, level.getFluidState(blockPos).getType(), 1);
                 } else {

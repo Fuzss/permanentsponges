@@ -23,7 +23,7 @@ public class PermanentSponges implements ModConstructor {
 
     @Override
     public void onConstructMod() {
-        ModRegistry.touch();
+        ModRegistry.bootstrap();
         registerHandlers();
     }
 

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "minecraft:magma_cream"
-    },
-    "W": {
-      "tag": "minecraft:wool"
-    }
+    "#": "minecraft:magma_cream",
+    "W": "#minecraft:wool"
   },
   "pattern": [
     " # ",

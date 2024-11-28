@@ -15,9 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FlowingFluid.class)
 abstract class FlowingFluidMixin extends Fluid {
 
-    @Inject(method = "canHoldFluid", at = @At("HEAD"), cancellable = true)
-    private void canHoldFluid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid, CallbackInfoReturnable<Boolean> callback) {
-        if (level instanceof ServerLevel serverLevel && LiquidAbsorptionHelper.tryPreventLiquidFromEntering(serverLevel, pos, fluid)) {
+    @Inject(method = "canHoldSpecificFluid", at = @At("HEAD"), cancellable = true)
+    private static void canHoldFluid(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid, CallbackInfoReturnable<Boolean> callback) {
+        if (blockGetter instanceof ServerLevel serverLevel &&
+                LiquidAbsorptionHelper.tryPreventLiquidFromEntering(serverLevel, blockPos, fluid)) {
             callback.setReturnValue(false);
         }
     }
