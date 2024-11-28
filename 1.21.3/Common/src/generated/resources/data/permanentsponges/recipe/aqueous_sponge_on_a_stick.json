@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "permanentsponges:aqueous_sponge"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "permanentsponges:aqueous_sponge_on_a_stick"
+  }
+}
