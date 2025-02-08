@@ -9,6 +9,7 @@ import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -41,6 +42,8 @@ public class ModRegistry {
             "magmatic_sponge_on_a_stick",
             (Item.Properties properties) -> new SpongeOnAStickItem(SpongeMaterial.MAGMATIC, properties),
             () -> new Item.Properties().durability(129));
+    public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
+            MAGMATIC_SPONGE_ON_A_STICK_ITEM);
     public static final Holder.Reference<PoiType> AQUEOUS_SPONGE_POI_TYPE = REGISTRIES.registerPoiType("aqueous_sponge",
             AQUEOUS_SPONGE_BLOCK);
     public static final Holder.Reference<PoiType> MAGMATIC_SPONGE_POI_TYPE = REGISTRIES.registerPoiType(

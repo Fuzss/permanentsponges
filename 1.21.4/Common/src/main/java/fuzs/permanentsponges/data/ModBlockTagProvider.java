@@ -16,9 +16,9 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
 
     @Override
     public void addTags(HolderLookup.Provider provider) {
-        this.add(BlockTags.MINEABLE_WITH_HOE)
+        this.tag(BlockTags.MINEABLE_WITH_HOE)
                 .add(ModRegistry.AQUEOUS_SPONGE_BLOCK.value(), ModRegistry.MAGMATIC_SPONGE_BLOCK.value());
-        this.add(ModRegistry.PERMANENT_SPONGES_BLOCK_TAG)
+        this.tag(ModRegistry.PERMANENT_SPONGES_BLOCK_TAG)
                 .add(ModRegistry.AQUEOUS_SPONGE_BLOCK.value(), ModRegistry.MAGMATIC_SPONGE_BLOCK.value());
     }
 }
