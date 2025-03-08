@@ -23,10 +23,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class SpongeOnAStickItem extends Item {
+public class HandheldSpongeItem extends Item {
     private final SpongeMaterial spongeMaterial;
 
-    public SpongeOnAStickItem(SpongeMaterial spongeMaterial, Properties properties) {
+    public HandheldSpongeItem(SpongeMaterial spongeMaterial, Properties properties) {
         super(properties);
         this.spongeMaterial = spongeMaterial;
     }

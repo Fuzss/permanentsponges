@@ -21,9 +21,9 @@ public class ModModelProvider extends AbstractModelProvider {
 
     @Override
     public void addItemModels(ItemModelGenerators itemModelGenerators) {
-        itemModelGenerators.generateFlatItem(ModRegistry.AQUEOUS_SPONGE_ON_A_STICK_ITEM.value(),
+        itemModelGenerators.generateFlatItem(ModRegistry.HANDHELD_AQUEOUS_SPONGE_ITEM.value(),
                 ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerators.generateFlatItem(ModRegistry.MAGMATIC_SPONGE_ON_A_STICK_ITEM.value(),
+        itemModelGenerators.generateFlatItem(ModRegistry.HANDHELD_MAGMATIC_SPONGE_ITEM.value(),
                 ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 }

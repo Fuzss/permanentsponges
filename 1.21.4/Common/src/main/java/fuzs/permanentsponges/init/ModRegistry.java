@@ -1,7 +1,7 @@
 package fuzs.permanentsponges.init;
 
 import fuzs.permanentsponges.PermanentSponges;
-import fuzs.permanentsponges.world.item.SpongeOnAStickItem;
+import fuzs.permanentsponges.world.item.HandheldSpongeItem;
 import fuzs.permanentsponges.world.level.block.PermanentSpongeBlock;
 import fuzs.permanentsponges.world.level.block.SpongeMaterial;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
@@ -34,16 +34,22 @@ public class ModRegistry {
                     .randomTicks());
     public static final Holder.Reference<Item> AQUEOUS_SPONGE_ITEM = REGISTRIES.registerBlockItem(AQUEOUS_SPONGE_BLOCK);
     public static final Holder.Reference<Item> MAGMATIC_SPONGE_ITEM = REGISTRIES.registerBlockItem(MAGMATIC_SPONGE_BLOCK);
-    public static final Holder.Reference<Item> AQUEOUS_SPONGE_ON_A_STICK_ITEM = REGISTRIES.registerItem(
+    /**
+     * TODO change item id to {@code handheld_aqueous_sponge} for 1.21.5
+     */
+    public static final Holder.Reference<Item> HANDHELD_AQUEOUS_SPONGE_ITEM = REGISTRIES.registerItem(
             "aqueous_sponge_on_a_stick",
-            (Item.Properties properties) -> new SpongeOnAStickItem(SpongeMaterial.AQUATIC, properties),
+            (Item.Properties properties) -> new HandheldSpongeItem(SpongeMaterial.AQUATIC, properties),
             () -> new Item.Properties().durability(65));
-    public static final Holder.Reference<Item> MAGMATIC_SPONGE_ON_A_STICK_ITEM = REGISTRIES.registerItem(
+    /**
+     * TODO change item id to {@code handheld_magmatic_sponge} for 1.21.5
+     */
+    public static final Holder.Reference<Item> HANDHELD_MAGMATIC_SPONGE_ITEM = REGISTRIES.registerItem(
             "magmatic_sponge_on_a_stick",
-            (Item.Properties properties) -> new SpongeOnAStickItem(SpongeMaterial.MAGMATIC, properties),
+            (Item.Properties properties) -> new HandheldSpongeItem(SpongeMaterial.MAGMATIC, properties),
             () -> new Item.Properties().durability(129));
     public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
-            MAGMATIC_SPONGE_ON_A_STICK_ITEM);
+            HANDHELD_MAGMATIC_SPONGE_ITEM);
     public static final Holder.Reference<PoiType> AQUEOUS_SPONGE_POI_TYPE = REGISTRIES.registerPoiType("aqueous_sponge",
             AQUEOUS_SPONGE_BLOCK);
     public static final Holder.Reference<PoiType> MAGMATIC_SPONGE_POI_TYPE = REGISTRIES.registerPoiType(
