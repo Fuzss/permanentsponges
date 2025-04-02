@@ -13,7 +13,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
 
     @Override
     public void addTranslations(TranslationBuilder builder) {
-        builder.addCreativeModeTab(PermanentSponges.MOD_ID, PermanentSponges.MOD_NAME);
+        builder.add(ModRegistry.CREATIVE_MODE_TAB.value(), PermanentSponges.MOD_NAME);
         builder.add(ModRegistry.AQUEOUS_SPONGE_BLOCK.value(), "Aqueous Sponge");
         builder.add(ModRegistry.MAGMATIC_SPONGE_BLOCK.value(), "Magmatic Sponge");
         builder.add(ModRegistry.HANDHELD_AQUEOUS_SPONGE_ITEM.value(), "Handheld Aqueous Sponge");

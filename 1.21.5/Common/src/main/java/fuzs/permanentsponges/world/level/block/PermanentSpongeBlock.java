@@ -41,21 +41,20 @@ public class PermanentSpongeBlock extends Block {
     }
 
     @Override
-    public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        super.onRemove(oldState, level, pos, newState, movedByPiston);
-        if (!oldState.is(newState.getBlock())) {
-            int spongeRadius = this.spongeMaterial.getBlockDistance() + 1;
-            List<BlockPos> positions = LiquidAbsorptionHelper.getSpongeRadius(spongeRadius);
-            for (int i = positions.size() - 1, j = 0; i >= 0; i--, j++) {
-                BlockPos blockPos = positions.get(i);
-                if (Math.abs(blockPos.getX()) == spongeRadius || Math.abs(blockPos.getY()) == spongeRadius ||
-                        Math.abs(blockPos.getZ()) == spongeRadius) {
-                    blockPos = blockPos.offset(pos);
-                    level.scheduleTick(blockPos, level.getFluidState(blockPos).getType(), 1);
-                } else {
-                    // we are able to break early as everything is sorted via maximum norm
-                    break;
-                }
+    protected void affectNeighborsAfterRemoval(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, movedByPiston);
+        int spongeRadius = this.spongeMaterial.getBlockDistance() + 1;
+        List<BlockPos> positions = LiquidAbsorptionHelper.getSpongeRadius(spongeRadius);
+        for (int i = positions.size() - 1, j = 0; i >= 0; i--, j++) {
+            BlockPos blockPosInRadius = positions.get(i);
+            if (Math.abs(blockPosInRadius.getX()) == spongeRadius ||
+                    Math.abs(blockPosInRadius.getY()) == spongeRadius ||
+                    Math.abs(blockPosInRadius.getZ()) == spongeRadius) {
+                blockPosInRadius = blockPosInRadius.offset(blockPos);
+                serverLevel.scheduleTick(blockPosInRadius, serverLevel.getFluidState(blockPosInRadius).getType(), 1);
+            } else {
+                // we are able to break early as everything is sorted via maximum norm
+                break;
             }
         }
     }
