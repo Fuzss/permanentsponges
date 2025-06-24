@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:stick",
+    "permanentsponges:magmatic_sponge"
+  ],
+  "result": {
+    "count": 1,
+    "id": "permanentsponges:magmatic_sponge_on_a_stick"
+  }
+}
