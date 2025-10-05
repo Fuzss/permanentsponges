@@ -1,1 +1,3 @@
 accessWidener   v2  named
+accessible  method  net/minecraft/world/item/Item   getPlayerPOVHitResult   (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/ClipContext$Fluid;)Lnet/minecraft/world/phys/BlockHitResult;
+accessible  field   net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
