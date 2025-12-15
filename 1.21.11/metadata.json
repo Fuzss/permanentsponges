@@ -1,0 +1,61 @@
+{
+    "mod": {
+        "id": "permanentsponges",
+        "group": "fuzs.permanentsponges",
+        "name": "Permanent Sponges",
+        "version": "21.11.0",
+        "authors": [
+            "Fuzs"
+        ],
+        "description": "Sponges to keep an area permanently dry. Fancy underwater base anyone?",
+        "license": "MPL-2.0"
+    },
+    "dependencies": [
+        {
+            "name": "fabricapi",
+            "type": "required",
+            "platforms": [
+                "fabric"
+            ]
+        },
+        {
+            "name": "forgeconfigapiport",
+            "type": "required",
+            "platforms": [
+                "fabric"
+            ]
+        },
+        {
+            "name": "puzzleslib",
+            "type": "required",
+            "platforms": [
+                "fabric",
+                "neoforge"
+            ]
+        }
+    ],
+    "links": [
+        {
+            "name": "github",
+            "slug": "permanentsponges"
+        },
+        {
+            "name": "curseforge",
+            "slug": "permanent-sponges",
+            "id": "852664"
+        },
+        {
+            "name": "modrinth",
+            "slug": "permanent-sponges",
+            "id": "p6prwv2Q"
+        }
+    ],
+    "environments": {
+        "client": "required",
+        "server": "required"
+    },
+    "platforms": [
+        "fabric",
+        "neoforge"
+    ]
+}

@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
@@ -37,13 +37,20 @@ public class LiquidAbsorptionHelper {
     private static List<BlockPos> getSortedSpongeRadius(int depth) {
         return BlockPos.betweenClosedStream(-depth, -depth, -depth, depth, depth, depth)
                 .map(BlockPos::immutable)
-                .sorted(Comparator.<BlockPos>comparingInt(blockPos -> Math.max(Math.max(Math.abs(blockPos.getX()), Math.abs(blockPos.getY())), Math.abs(blockPos.getZ()))).thenComparingInt(BlockPos.ZERO::distManhattan))
+                .sorted(Comparator.<BlockPos>comparingInt(blockPos -> Math.max(Math.max(Math.abs(blockPos.getX()),
+                                Math.abs(blockPos.getY())), Math.abs(blockPos.getZ())))
+                        .thenComparingInt(BlockPos.ZERO::distManhattan))
                 .toList();
     }
 
     public static boolean removeAllLiquid(ServerLevel level, BlockPos blockPos, int spongeRadius, boolean destroySource) {
         List<BlockPos> positions = getSpongeRadius(spongeRadius);
-        BoundingBox boundingBox = new BoundingBox(-spongeRadius, -spongeRadius, -spongeRadius, spongeRadius, spongeRadius, spongeRadius);
+        BoundingBox boundingBox = new BoundingBox(-spongeRadius,
+                -spongeRadius,
+                -spongeRadius,
+                spongeRadius,
+                spongeRadius,
+                spongeRadius);
         level.getFluidTicks().clearArea(boundingBox.move(blockPos));
         boolean hasDestroyedSource = false;
         for (BlockPos currentBlockPos : positions) {
@@ -67,16 +74,25 @@ public class LiquidAbsorptionHelper {
         if (level.getBlockState(blockPos).is(ModRegistry.PERMANENT_SPONGES_BLOCK_TAG)) {
             level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, blockPos, 0);
-            level.playSound(null, blockPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, (1.0F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
+            level.playSound(null,
+                    blockPos,
+                    SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.BLOCKS,
+                    1.0F,
+                    (1.0F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
         }
     }
 
     private static void removeLiquid(Level level, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
-        if (!(blockState.getBlock() instanceof BucketPickup) || ((BucketPickup) blockState.getBlock()).pickupBlock(null, level, blockPos, blockState).isEmpty()) {
+        if (!(blockState.getBlock() instanceof BucketPickup) || ((BucketPickup) blockState.getBlock()).pickupBlock(null,
+                level,
+                blockPos,
+                blockState).isEmpty()) {
             boolean setToAir = false;
             if (blockState.getBlock() instanceof LiquidBlock || blockState.isAir()) {
                 setToAir = true;
-            } else if (blockState.is(Blocks.KELP) || blockState.is(Blocks.KELP_PLANT) || blockState.is(Blocks.SEAGRASS) || blockState.is(Blocks.TALL_SEAGRASS)) {
+            } else if (blockState.is(Blocks.KELP) || blockState.is(Blocks.KELP_PLANT) || blockState.is(Blocks.SEAGRASS)
+                    || blockState.is(Blocks.TALL_SEAGRASS)) {
                 BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(blockPos) : null;
                 Block.dropResources(blockState, level, blockPos, blockEntity);
                 setToAir = true;
@@ -96,7 +112,11 @@ public class LiquidAbsorptionHelper {
         } else {
             level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, blockPos, 0);
             level.playSound(null,
-                    blockPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, (1.0F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
+                    blockPos,
+                    SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.BLOCKS,
+                    1.0F,
+                    (1.0F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
         }
     }
 
@@ -112,8 +132,7 @@ public class LiquidAbsorptionHelper {
         }
     }
 
-    @Nullable
-    private static Map.Entry<SpongeMaterial, BlockPos> keepPositionFreeFromLiquid(ServerLevel serverLevel, BlockPos blockPos) {
+    private static Map.@Nullable Entry<SpongeMaterial, BlockPos> keepPositionFreeFromLiquid(ServerLevel serverLevel, BlockPos blockPos) {
         // Lithium passes null in here
         if (blockPos != null) {
             PoiManager poiManager = serverLevel.getPoiManager();
@@ -122,9 +141,14 @@ public class LiquidAbsorptionHelper {
                 // 2**0.5
                 int distance = (int) Math.ceil((spongeMaterial.getBlockDistance() + 1) * 1.42);
                 Optional<BlockPos> optional = poiManager.findAll(holder -> holder.is(resourceKey),
-                        Predicates.alwaysTrue(), blockPos, distance, PoiManager.Occupancy.ANY).filter((BlockPos currentBlockPos) -> {
+                        Predicates.alwaysTrue(),
+                        blockPos,
+                        distance,
+                        PoiManager.Occupancy.ANY).filter((BlockPos currentBlockPos) -> {
                     currentBlockPos = currentBlockPos.subtract(blockPos);
-                    return Math.abs(currentBlockPos.getX()) <= spongeMaterial.getBlockDistance() && Math.abs(currentBlockPos.getY()) <= spongeMaterial.getBlockDistance() && Math.abs(currentBlockPos.getZ()) <= spongeMaterial.getBlockDistance();
+                    return Math.abs(currentBlockPos.getX()) <= spongeMaterial.getBlockDistance()
+                            && Math.abs(currentBlockPos.getY()) <= spongeMaterial.getBlockDistance()
+                            && Math.abs(currentBlockPos.getZ()) <= spongeMaterial.getBlockDistance();
                 }).min(Comparator.comparingInt(blockPos::distManhattan));
                 if (optional.isPresent()) {
                     return Map.entry(spongeMaterial, optional.get());
